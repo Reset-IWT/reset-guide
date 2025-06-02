@@ -1,0 +1,160 @@
+/* General Body and Container Styles */
+body {
+    /* Using a dark green/almost black for text, derived from your palette */
+    font-family: 'Open Sans', Arial, sans-serif; /* A clear sans-serif for body */
+    margin: 0;
+    padding: 20px;
+    /* Using the light beige/tan for background */
+    background-color: #2b3d30; /* A darker, deep green from your website */
+    color: #1a2c20; /* Approx. dark green/almost black from your palette */
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    /* Using the off-white/cream for container background */
+    background-color: #fdfdfa; /* Approx. off-white/cream from your palette */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Slightly softer shadow */
+}
+
+/* Heading Styles - Customized for "Outfit" font */
+h1 {
+    font-family: 'Outfit', sans-serif; /* Apply Outfit for the main title */
+    text-align: center;
+    color: #7a4f3b; /* Reddish-brown from your palette */
+    margin-bottom: 30px;
+    font-size: 2.5em; /* Make the main title larger */
+    letter-spacing: 1px; /* Add a subtle letter spacing */
+}
+
+/* Use Open Sans for subheadings and other general headings for consistency */
+h2, h3, h4 {
+    font-family: 'Open Sans', Arial, sans-serif; /* Use Open Sans for these headings */
+    color: #4a6750; /* A darker shade of olive green for contrast */
+}
+
+h2 {
+    margin-top: 30px;
+    text-align: center;
+    margin-bottom: 30px; /* Consistent margin for h2 */
+}
+
+h3 {
+    text-align: left; /* Align h3 headings left within activity sections */
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+h4 {
+    color: #1a2c20; /* Dark green/almost black for specific activity titles */
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+
+/* Questionnaire Question Group Styles */
+.question-group {
+    margin-bottom: 25px;
+    padding: 15px;
+    border: 1px solid #d4d0cb; /* A softer, light beige border */
+    border-radius: 5px;
+    background-color: #ffffff; /* Pure white for question background */
+}
+
+.question-text {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #3b4e3f; /* A slightly softer dark green for question text */
+}
+
+.options label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 8px 0;
+    transition: background-color 0.2s ease;
+}
+
+.options label:hover {
+    background-color: #ececec; /* Lighter hover effect */
+}
+
+.options input[type="radio"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+    accent-color: #4a6750; /* Changes the radio button color to olive green */
+}
+
+/* Submit Button Styles */
+button[type="submit"] {
+    display: block;
+    width: 250px; /* Slightly wider button */
+    padding: 15px 25px; /* More padding */
+    margin: 40px auto 0;
+    background-color: #7a4f3b; /* Reddish-brown from your palette */
+    color: white;
+    border: none;
+    border-radius: 8px; /* Slightly more rounded */
+    font-size: 1.2em; /* Larger font size */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #5d3d2e; /* Darker reddish-brown on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Results Section Styles */
+.results-hidden {
+    display: none;
+}
+
+#results {
+    margin-top: 40px;
+    padding: 30px;
+    border: 1px solid #c8d8c0; /* A soft green border for results */
+    border-radius: 8px;
+    background-color: #eff6ee; /* A very light green/cream background for results */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#recommendedActivities ul {
+    list-style: none;
+    padding: 0;
+}
+
+#recommendedActivities li {
+    background-color: #ffffff; /* White background for individual activity items */
+    margin-bottom: 15px;
+    padding: 20px; /* More padding for activities */
+    border-left: 5px solid #4a6750; /* Olive green accent border */
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow for each activity */
+}
+
+#recommendedActivities p {
+    margin-bottom: 10px;
+    color: #333; /* Default dark text for body copy */
+}
+
+#recommendedActivities strong {
+    color: #1a2c20; /* Darker strong text */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px 10px;
+        padding: 20px;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        font-size: 1em;
+        padding: 12px 15px;
+    }
+}
