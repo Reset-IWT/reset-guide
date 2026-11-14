@@ -1,73 +1,69 @@
 /* General Body and Container Styles */
 body {
-    /* Using a dark green/almost black for text, derived from your palette */
-    font-family: 'Open Sans', Arial, sans-serif; /* A clear sans-serif for body */
+    font-family: 'Open Sans', Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    /* Using the light beige/tan for background */
-    background-color: #2b3d30; /* A darker, deep green from your website */
-    color: #1a2c20; /* Approx. dark green/almost black from your palette */
+    background-color: #2b3d30;
+    color: #1a2c20;
     line-height: 1.6;
 }
 
 .container {
     max-width: 800px;
     margin: 30px auto;
-    /* Using the off-white/cream for container background */
-    background-color: #fdfdfa; /* Approx. off-white/cream from your palette */
+    background-color: #fdfdfa;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Slightly softer shadow */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Heading Styles - Customized for "Outfit" font */
 h1 {
-    font-family: 'Outfit', sans-serif; /* Apply Outfit for the main title */
+    font-family: 'Outfit', sans-serif;
     text-align: center;
-    color: #7a4f3b; /* Reddish-brown from your palette */
+    color: #7a4f3b;
     margin-bottom: 30px;
-    font-size: 2.5em; /* Make the main title larger */
-    letter-spacing: 1px; /* Add a subtle letter spacing */
+    font-size: 2.5em;
+    letter-spacing: 1px;
 }
 
 /* Use Open Sans for subheadings and other general headings for consistency */
 h2, h3, h4 {
-    font-family: 'Open Sans', Arial, sans-serif; /* Use Open Sans for these headings */
-    color: #4a6750; /* A darker shade of olive green for contrast */
+    font-family: 'Open Sans', Arial, sans-serif;
+    color: #4a6750;
 }
 
 h2 {
     margin-top: 30px;
     text-align: center;
-    margin-bottom: 30px; /* Consistent margin for h2 */
+    margin-bottom: 30px;
 }
 
 h3 {
-    text-align: left; /* Align h3 headings left within activity sections */
+    text-align: left;
     margin-top: 25px;
     margin-bottom: 10px;
 }
 
 h4 {
-    color: #1a2c20; /* Dark green/almost black for specific activity titles */
+    color: #1a2c20;
     margin-top: 20px;
     margin-bottom: 8px;
 }
-
 
 /* Questionnaire Question Group Styles */
 .question-group {
     margin-bottom: 25px;
     padding: 15px;
-    border: 1px solid #d4d0cb; /* A softer, light beige border */
+    border: 1px solid #d4d0cb;
     border-radius: 5px;
-    background-color: #ffffff; /* Pure white for question background */
+    background-color: #ffffff;
 }
 
 .question-text {
     font-weight: bold;
     margin-bottom: 15px;
-    color: #3b4e3f; /* A slightly softer dark green for question text */
+    color: #3b4e3f;
 }
 
 .options label {
@@ -79,36 +75,96 @@ h4 {
 }
 
 .options label:hover {
-    background-color: #ececec; /* Lighter hover effect */
+    background-color: #ececec;
 }
 
 .options input[type="radio"] {
     margin-right: 10px;
     transform: scale(1.2);
-    accent-color: #4a6750; /* Changes the radio button color to olive green */
+    accent-color: #4a6750;
+}
+
+/* Contact Section Styles */
+.contact-section {
+    background-color: #eff6ee;
+    border: 1px solid #c8d8c0;
+    padding: 25px;
+}
+
+.contact-section h3 {
+    margin-top: 0;
+    color: #7a4f3b;
+}
+
+.contact-description {
+    margin-bottom: 20px;
+    color: #1a2c20;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #3b4e3f;
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #d4d0cb;
+    border-radius: 5px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1em;
+    color: #1a2c20;
+    background-color: #ffffff;
+}
+
+.input-group input[type="text"]:focus,
+.input-group input[type="email"]:focus {
+    outline: none;
+    border-color: #4a6750;
+    box-shadow: 0 0 0 2px rgba(74, 103, 80, 0.2);
+}
+
+.error-message {
+    color: #9e2a2b;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 /* Submit Button Styles */
 button[type="submit"] {
     display: block;
-    width: 250px; /* Slightly wider button */
-    padding: 15px 25px; /* More padding */
+    width: 250px;
+    padding: 15px 25px;
     margin: 40px auto 0;
-    background-color: #7a4f3b; /* Reddish-brown from your palette */
+    background-color: #7a4f3b;
     color: white;
     border: none;
-    border-radius: 8px; /* Slightly more rounded */
-    font-size: 1.2em; /* Larger font size */
+    border-radius: 8px;
+    font-size: 1.2em;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 button[type="submit"]:hover {
-    background-color: #5d3d2e; /* Darker reddish-brown on hover */
-    transform: translateY(-2px); /* Slight lift effect */
+    background-color: #5d3d2e;
+    transform: translateY(-2px);
 }
 
-/* Results Section Styles */
+button[type="submit"]:disabled {
+    background-color: #8c7a70;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Results / Confirmation Section Styles */
 .results-hidden {
     display: none;
 }
@@ -116,33 +172,16 @@ button[type="submit"]:hover {
 #results {
     margin-top: 40px;
     padding: 30px;
-    border: 1px solid #c8d8c0; /* A soft green border for results */
+    border: 1px solid #c8d8c0;
     border-radius: 8px;
-    background-color: #eff6ee; /* A very light green/cream background for results */
+    background-color: #eff6ee;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    text-align: center;
 }
 
-#recommendedActivities ul {
-    list-style: none;
-    padding: 0;
-}
-
-#recommendedActivities li {
-    background-color: #ffffff; /* White background for individual activity items */
-    margin-bottom: 15px;
-    padding: 20px; /* More padding for activities */
-    border-left: 5px solid #4a6750; /* Olive green accent border */
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow for each activity */
-}
-
-#recommendedActivities p {
-    margin-bottom: 10px;
-    color: #333; /* Default dark text for body copy */
-}
-
-#recommendedActivities strong {
-    color: #1a2c20; /* Darker strong text */
+#results h2 {
+    margin-top: 0;
+    color: #7a4f3b;
 }
 
 /* Media Queries for Responsiveness */
