@@ -1,81 +1,75 @@
+// ==========================================
+// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW
+// ==========================================
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyvQcm6a424EnX2q0H46-a8mN1z7sihztxSo9feG3ctujgHj_OXu2eD7-kNY_krnOrn/exec';
+
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('questionnaireForm');
+    const submitBtn = document.getElementById('submitBtn');
     const resultsDiv = document.getElementById('results');
-    const recommendedActivitiesDiv = document.getElementById('recommendedActivities');
+    const confirmationMessageDiv = document.getElementById('confirmationMessage');
+    const formError = document.getElementById('formError');
 
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission (page reload)
+    form.addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent page reload
+
+        // Hide any previous error messages
+        formError.classList.add('results-hidden');
+        formError.textContent = '';
+
+        // Collect Name and Email
+        const participantName = document.getElementById('participantName').value.trim();
+        const participantEmail = document.getElementById('participantEmail').value.trim();
+
+        if (!participantName || !participantEmail) {
+            formError.textContent = 'Please enter both your name and email address.';
+            formError.classList.remove('results-hidden');
+            return;
+        }
 
         const answers = {};
-        // Get all questions (radio button groups)
+        // Get all 30 questions (radio button groups)
         for (let i = 1; i <= 30; i++) {
             const questionName = `q${i}`;
             const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
             if (selectedOption) {
                 answers[questionName] = parseInt(selectedOption.value);
             } else {
-                // If a question is not answered, you might want to alert the user
-                // or handle it gracefully. Since we added 'required' in HTML, this
-                // block should ideally not be reached if the form is valid.
                 alert(`Please answer question ${i}.`);
-                return; // Stop function execution if any question is not answered
+                return;
             }
         }
 
-        console.log("Raw Answers:", answers); // For debugging: view the raw answers
-
         // 1. Invert scores for specific questions
-        // Invert scores for 2, 7, 9, 10, 11, 12, 14, 15, 16, 17, 20, 23, 27, 29, 30. [cite: 5]
-        // That is, 1 becomes 5, 2 becomes 4, 3 remains 3, 4 becomes 2, 5 becomes 1. [cite: 6]
         const questionsToInvert = [2, 7, 9, 10, 11, 12, 14, 15, 16, 17, 20, 27, 29, 30];
-        const invertedAnswers = { ...answers }; // Create a copy to store inverted scores
+        const invertedAnswers = { ...answers };
 
         questionsToInvert.forEach(qNum => {
             const questionKey = `q${qNum}`;
             if (invertedAnswers[questionKey] !== undefined) {
                 const originalScore = invertedAnswers[questionKey];
-                const invertedScore = 6 - originalScore; // Logic for inversion: 1->5, 2->4, 3->3, 4->2, 5->1 [cite: 6]
-                invertedAnswers[questionKey] = invertedScore;
+                invertedAnswers[questionKey] = 6 - originalScore;
             }
         });
 
-        console.log("Inverted Answers:", invertedAnswers); // For debugging: view answers after inversion
-// 2. Calculate average scores for each classification
-
-        // Helper function to calculate average for a set of questions
+        // 2. Calculate average scores for each classification
         function calculateAverage(questionNumbers, sourceAnswers) {
             let sum = 0;
             questionNumbers.forEach(qNum => {
-                sum += sourceAnswers[`q${qNum}`] || 0; // Add score, default to 0 if undefined (shouldn't happen with 'required')
+                sum += sourceAnswers[`q${qNum}`] || 0;
             });
             return sum / questionNumbers.length;
         }
 
-        const classificationScores = {};
+        const classificationScores = {
+            selfIdentityDeficits: calculateAverage([2, 17, 19, 25, 27, 28], invertedAnswers),
+            addictiveTendencies: calculateAverage([5, 6, 8, 12, 20, 26], invertedAnswers),
+            hyperphobicTendencies: calculateAverage([3, 7, 13, 15, 22, 30], invertedAnswers),
+            sensoryIntegrationDeficits: calculateAverage([1, 4, 10, 11, 16, 24], invertedAnswers),
+            physicalDeficits: calculateAverage([9, 14, 18, 21, 23, 29], invertedAnswers)
+        };
 
-        // Self-Identity Deficits: (2+17+19+25+27+28)/6 [cite: 7]
-        const sidQuestions = [2, 17, 19, 25, 27, 28];
-        classificationScores.selfIdentityDeficits = calculateAverage(sidQuestions, invertedAnswers);
-
-        // Addictive Tendencies: (5+6+8+12+20+26)/6 [cite: 7]
-        const atQuestions = [5, 6, 8, 12, 20, 26];
-        classificationScores.addictiveTendencies = calculateAverage(atQuestions, invertedAnswers);
-
-        // Hyper-phobic Tendencies: (3+7+13+15+22+30)/6 [cite: 8]
-        const htQuestions = [3, 7, 13, 15, 22, 30];
-        classificationScores.hyperphobicTendencies = calculateAverage(htQuestions, invertedAnswers);
-
-        // Sensory Integration Deficits: (1+4+10+11+16+24)/6 [cite: 9]
-        const sinfQuestions = [1, 4, 10, 11, 16, 24];
-        classificationScores.sensoryIntegrationDeficits = calculateAverage(sinfQuestions, invertedAnswers);
-
-        // Physical Deficits: (9+14+18+21+23+29)/6 [cite: 9]
-        const pdQuestions = [9, 14, 18, 21, 23, 29];
-        classificationScores.physicalDeficits = calculateAverage(pdQuestions, invertedAnswers);
-
-        console.log("Classification Averages:", classificationScores); // For debugging: view the calculated averages
-
-	// 3. Find the classification with the highest score
+        // 3. Find the classification with the highest score
         let highestScore = 0;
         let highestScoringClassification = '';
 
@@ -88,9 +82,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        console.log("Highest Scoring Classification:", highestScoringClassification, "Score:", highestScore); // For debugging
+        // Clean titles for the email subject line and Google Sheet record
+        const pathTitles = {
+            selfIdentityDeficits: 'The Blue Path: Cultivating Your Inner Compass',
+            addictiveTendencies: 'The Red Path: Building Self-Regulation',
+            hyperphobicTendencies: 'The Green Path: Navigating Challenges with Calm',
+            sensoryIntegrationDeficits: 'The Yellow Path: Harmonizing Your Senses',
+            physicalDeficits: 'The Orange Path: Strengthening Your Foundation'
+        };
 
-// 4. Define and display recommended activities based on the highest score
+        // 4. Activity descriptions sent in the email
         const activities = {
             selfIdentityDeficits: `
                 <h3>The Blue Path: Cultivating Your Inner Compass</h3>
@@ -294,15 +295,50 @@ document.addEventListener('DOMContentLoaded', function() {
             `
         };
 
-        recommendedActivitiesDiv.innerHTML = activities[highestScoringClassification];
+        // 5. Prepare payload and send to Google Apps Script
+        const payload = {
+            name: participantName,
+            email: participantEmail,
+            pathTitle: pathTitles[highestScoringClassification],
+            activitiesHtml: activities[highestScoringClassification],
+            scores: classificationScores
+        };
 
-        // Ensure the results div is visible and scroll into view
-        resultsDiv.classList.remove('results-hidden');
-        resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        // Disable button while sending to prevent duplicate submissions
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending Results...';
 
-        // Next, we will add the calculation logic here.
-        // For now, let's just show the results div.
-        resultsDiv.classList.remove('results-hidden');
-        resultsDiv.scrollIntoView({ behavior: 'smooth' }); // Scroll to results
+        try {
+            // Note: text/plain avoids browser CORS preflight checks with Google Apps Script
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                // Hide the form and display the email-only confirmation message
+                form.style.display = 'none';
+                confirmationMessageDiv.innerHTML = `
+                    <p>Thank you, <strong>${participantName}</strong>!</p>
+                    <p>We have emailed your personalized CogSyF results and activity guide to <strong>${participantEmail}</strong>.</p>
+                    <p><em>(If you don't see it within a minute or two, please check your spam or promotions folder.)</em></p>
+                `;
+                resultsDiv.classList.remove('results-hidden');
+                resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                throw new Error(result.message || 'Server returned an error.');
+            }
+        } catch (error) {
+            console.error('Submission error:', error);
+            formError.textContent = 'Something went wrong while sending your email. Please double-check your email address and try again.';
+            formError.classList.remove('results-hidden');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Email My Results';
+        }
     });
 });
