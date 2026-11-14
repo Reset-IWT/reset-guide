@@ -8,18 +8,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
-</head>    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>CogSyF Questionnaire</h1>
-	<p>This questionnaire was developed as a product of Reset Integrative Wilderness Therapy, Inc. to help you quickly identify the best path to prioritize your well-being. Find us at <a href="https://www.reset-iwt.com">reset-iwt.com</a>.</p>
+        <p>This questionnaire was developed as a product of Reset Integrative Wilderness Therapy, Inc. to help you quickly identify the best path to prioritize your well-being. Find us at <a href="https://www.reset-iwt.com">reset-iwt.com</a>.</p>
 
         <form id="questionnaireForm">
-	    <div class="question-group">
+            <div class="question-group">
                 <p class="question-text">1. I avoid environments with bright lights, loud noises, or excessive touching.</p>
                 <div class="options">
                     <label><input type="radio" name="q1" value="1" required> 1 (Strongly disagree)</label>
@@ -63,7 +60,7 @@
                 </div>
             </div>
 
-	    <div class="question-group">
+            <div class="question-group">
                 <p class="question-text">5. I have tried to reduce or stop substance use before but was unsuccessful.</p>
                 <div class="options">
                     <label><input type="radio" name="q5" value="1" required> 1 (Strongly disagree)</label>
@@ -106,7 +103,8 @@
                     <label><input type="radio" name="q8" value="5"> 5 (Strongly agree)</label>
                 </div>
             </div>
-	    <div class="question-group">
+
+            <div class="question-group">
                 <p class="question-text">9. I do not experience persisting pain.</p>
                 <div class="options">
                     <label><input type="radio" name="q9" value="1" required> 1 (Strongly disagree)</label>
@@ -150,7 +148,7 @@
                 </div>
             </div>
 
-	    <div class="question-group">
+            <div class="question-group">
                 <p class="question-text">13. I experience general anxiety on a regular basis.</p>
                 <div class="options">
                     <label><input type="radio" name="q13" value="1" required> 1 (Strongly disagree)</label>
@@ -194,7 +192,7 @@
                 </div>
             </div>
 
-	    <div class="question-group">
+            <div class="question-group">
                 <p class="question-text">17. I feel comfortable and at ease when I am alone with free time.</p>
                 <div class="options">
                     <label><input type="radio" name="q17" value="1" required> 1 (Strongly disagree)</label>
@@ -238,7 +236,7 @@
                 </div>
             </div>
 
-	    <div class="question-group">
+            <div class="question-group">
                 <p class="question-text">21. I have suffered from physical injuries that affect my daily life.</p>
                 <div class="options">
                     <label><input type="radio" name="q21" value="1" required> 1 (Strongly disagree)</label>
@@ -250,7 +248,7 @@
             </div>
 
             <div class="question-group">
-                <p class="question-text">22. I often worry excessively about potential dangers or problems.(</p>
+                <p class="question-text">22. I often worry excessively about potential dangers or problems.</p>
                 <div class="options">
                     <label><input type="radio" name="q22" value="1" required> 1 (Strongly disagree)</label>
                     <label><input type="radio" name="q22" value="2"> 2 (Somewhat disagree)</label>
@@ -281,7 +279,8 @@
                     <label><input type="radio" name="q24" value="5"> 5 (Strongly agree)</label>
                 </div>
             </div>
-	    <div class="question-group">
+
+            <div class="question-group">
                 <p class="question-text">25. I struggle with body image issues.</p>
                 <div class="options">
                     <label><input type="radio" name="q25" value="1" required> 1 (Strongly disagree)</label>
@@ -325,7 +324,7 @@
                 </div>
             </div>
 
-	    <div class="question-group">
+            <div class="question-group">
                 <p class="question-text">29. I am physically healthy and do not suffer from any major medical conditions.</p>
                 <div class="options">
                     <label><input type="radio" name="q29" value="1" required> 1 (Strongly disagree)</label>
@@ -347,15 +346,30 @@
                 </div>
             </div>
 
+            <!-- Contact Details Gate -->
+            <div class="question-group contact-section">
+                <h3>Where should we send your results?</h3>
+                <p class="contact-description">Enter your name and email address below to receive your personalized path and exercise guide directly in your inbox so you can save and revisit it anytime.</p>
 
+                <div class="input-group">
+                    <label for="participantName">Name</label>
+                    <input type="text" id="participantName" name="participantName" required placeholder="Your name">
+                </div>
 
-            <button type="submit">Submit Answers</button>
+                <div class="input-group">
+                    <label for="participantEmail">Email Address</label>
+                    <input type="email" id="participantEmail" name="participantEmail" required placeholder="you@example.com">
+                </div>
+
+                <p id="formError" class="error-message results-hidden"></p>
+            </div>
+
+            <button type="submit" id="submitBtn">Email My Results</button>
         </form>
 
         <div id="results" class="results-hidden">
-            <h2>Your Prioritized Activities</h2>
-            <div id="recommendedActivities">
-                </div>
+            <h2>Check Your Inbox!</h2>
+            <div id="confirmationMessage"></div>
         </div>
     </div>
 
